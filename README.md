@@ -140,7 +140,7 @@ Tasks refers to the structure and organization of the Linux operating system.
   * Arguments modify the behavior of the command (e.g., filenames, directories).
   * Options (flags) provide additional instructions (e.g., ```-l``` for long format in ``ls``).
     
-* Output:
+* e. Output:
   * Commands produce output based on their functionality.
   * Output can be displayed directly in the terminal or redirected to files.
   * Examples:

@@ -190,6 +190,7 @@ Here's how you can do it:
 ```
 strace -c bash -c "cd /path/to/directory"
 ```
+![strace_cd_new](https://github.com/Bilalmhmd/Linux-Fundamentals/assets/70241688/d56b4b0d-2405-4900-a549-e7dde4ae274e)
 
 ```
 strac -c ls

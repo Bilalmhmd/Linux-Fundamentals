@@ -2,6 +2,7 @@
 Tasks refers to the structure and organization of the Linux operating system.
 
 ## (1) Linux System Architecture
+
 ## Tasks
 
 ### 1- What does kernel mean ?
@@ -147,5 +148,29 @@ Tasks refers to the structure and organization of the Linux operating system.
     * ```ls``` lists files and directories.
     * ```mkdir``` creates a new directory.
     * ```ps``` displays information about running processes.
+
+
+## (2) System Call Interface
+
+## Tasks
+
+### 1- Trace System call for [ ps & cd & ls ] commands.
+```
+strac -c ps
+```
+![strace_ps](https://github.com/Bilalmhmd/Linux-Fundamentals/assets/70241688/8106c076-11b8-4851-8fcc-d67cad16965e)
+
+```
+strac -c cd
+```
+![strace_cd](https://github.com/Bilalmhmd/Linux-Fundamentals/assets/70241688/cb7a8d7b-ebba-42a4-ae96-7a1553099bcd)
+
+```
+strac -c ls
+```
+![strace_ls](https://github.com/Bilalmhmd/Linux-Fundamentals/assets/70241688/4e1e7a26-f7dd-4459-813c-cf19d0972786)
+
+
+
 
 

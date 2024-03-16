@@ -184,7 +184,7 @@ strac -c cd
 ```
 ![strace_cd](https://github.com/Bilalmhmd/Linux-Fundamentals/assets/70241688/cb7a8d7b-ebba-42a4-ae96-7a1553099bcd)
 
-`NOTE: `
+`NOTE:`
 you can indirectly trace the system calls that occur when you execute `cd` by invoking `strace` within a subshell.
 Here's how you can do it:
 ```

@@ -2,8 +2,20 @@
 Tasks refers to the structure and organization of the Linux operating system.
 
 ## (1) Linux System Architecture
-
-## Tasks
+```
+1- What does kernel mean ?
+2- What does Operating System mean ?
+3- Is Linux a kernel OR operating system ?
+4- What is an Architecture Layer Diagram ?
+5- What is user space ?
+6- What is kernel Space ?
+7- Describe Main Layers for Linux kernel.
+8- Identify the Purpose for each Layer.
+9- Identify how each layer interacts with the lower one.
+10- What is Glibc Library ?
+11- What does command mean ?
+12- Describe command in-terms of the following:  a. name b. Location c. version d. input  e. output
+```
 
 ### 1- What does kernel mean ?
 * a kernel is the most basic level or core of an operating system, responsible for resource allocation, file management, and security.
@@ -152,7 +164,9 @@ Tasks refers to the structure and organization of the Linux operating system.
 
 ## (2) System Call Interface
 
-## Tasks
+```
+1- Trace System call for [ ps & cd & ls ] commands.
+```
 
 ### 1- Trace System call for [ ps & cd & ls ] commands.
 ```

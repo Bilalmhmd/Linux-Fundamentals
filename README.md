@@ -176,8 +176,20 @@ strac -c ps
 
 ```
 strac -c cd
+  The error message you're encountering is because cd is a shell builtin command,
+  not an executable file that can be traced using strace.
+  strace is used to trace system calls and signals for a given executable or process.
+  Since cd is a shell builtin, it doesn't exist as a separate executable file in the file system,
+  hence strace can't find it.
 ```
 ![strace_cd](https://github.com/Bilalmhmd/Linux-Fundamentals/assets/70241688/cb7a8d7b-ebba-42a4-ae96-7a1553099bcd)
+
+`NOTE: `
+you can indirectly trace the system calls that occur when you execute `cd` by invoking `strace` within a subshell.
+Here's how you can do it:
+```
+strace -c bash -c "cd /path/to/directory"
+```
 
 ```
 strac -c ls

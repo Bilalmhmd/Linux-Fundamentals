@@ -197,6 +197,8 @@ strac -c ls
 ```
 ![strace_ls](https://github.com/Bilalmhmd/Linux-Fundamentals/assets/70241688/4e1e7a26-f7dd-4459-813c-cf19d0972786)
 
+### 2- a.extract files of interactions. b. Identify all the system calls that have been used. c.Measure system calls performance in terms of time.
+
 
 
 

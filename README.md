@@ -200,6 +200,133 @@ strac -c ls
 ### 2- a.extract files of interactions. b. Identify all the system calls that have been used. c.Measure system calls performance in terms of time.
 
 
+## (3) Process Management Stack
+
+```
+1- What is a Process ?
+2- What is a Process Owner ?
+3- What are Parent & Child Processes ?
+4- What are Process IDs ?
+5- What is a Process Group ?
+6- What are Process Types ?
+7- what is The “Job” Concept ?
+8- what is the Job Control ?
+9- What are Jobs and Process Groups ?
+10- what is Shell Session ?
+```
+
+### 1- What is a Process ?
+- A Process is an instance of a running program.
+- Linux is a multi-tasking OS, This means it can run multiple tasks simultaneously.
+- The Linux Kernel distribute the processor time among the running processes.
+- Even a single application, may have multiple threads (for doing multiple actions in parallel).
+- In Linux, a thread is just another process (of special nature) so a multi-threaded application is an application that have multiple processes running in parallel.
+- We can also have multiple instances of the same application running simultaneously in different processes.
+
+### 2- What is a Process Owner ?
+- Linux is a multi-user System, so multiple users can be using the system.
+- Each user starting a process becomes its owner.
+- Note that the process owner does not have to be the same as the owner 
+  of the binary file for the process.
+- Each process have an owner, some processes started by the system can 
+  be owned by the root user.
+- The process owner has privileges on his process. He can kill it, pause it, 
+  resume it. 
+- The ‘root’ user have super powers on all system processes.
+- The process inherits its user privileges when trying to access resources 
+(for example when a process tries to write in a file).
+
+`Remember:` if the process file has the permission “s”, the process inherits its permissions from its 
+file owner (and not the process owner).
+
+### 3- What are Parent & Child Processes ?
+- Processes are organized in parent-child relationships.
+- Each process that creates another becomes the parent, and the new 
+  process becomes the child process.
+- First process to run is the `systemd` process that is started at system 
+  boot… this is the grand parent of all processes in the whole system.
+- If a process dies, then its orphan children are re-parented to the `systemd`
+  process.
 
 
+### 4- What are Process IDs ?
+- Each Process has a unique number to identify it.
+- It is called Process ID (PID).
+- Each process will maintain its PID and the PID of its parent (PPID).
+- The PID and PPID enable us to build the process hierarchy tree.
+- The `systemd` process is the parent of all processes, which has `PID = 1  - PPID = 0`
+- To show the Process tree hierarchy:
+  
+```
+$ pstree (Show tree starting at systemd process)  
+```
+![pstree](https://github.com/Bilalmhmd/Linux-Fundamentals/assets/70241688/4e99325c-861f-443c-b507-14b9fac20ed6)
 
+```
+$ pstree -p (to show PIDs of all processes).
+```
+![pstree -p](https://github.com/Bilalmhmd/Linux-Fundamentals/assets/70241688/73f6de36-7165-4fe3-9b25-0590475ec435)
+
+```
+$ pstree 1000 (Show tree starting at process with PID = 1000).
+- I didn't have a process with PID = 1000. , SO i will try anthor PID = 2347. 
+```
+![pstree 2347](https://github.com/Bilalmhmd/Linux-Fundamentals/assets/70241688/9a65e895-f65a-498f-91f9-aae83c48f366)
+
+
+### 5- What is a Process Group ?
+- Process Group is a family of processes (A process, its children,grand-children, …etc).
+- When a process is created it becomes a member of the process group of its parent.
+- Some processes may be started in its new group, and it will 
+  detach from its parent group, and become a Process Group Leader.
+- All descendants will follow the new group.
+- Each process maintain the ID of its process group (PGID)
+  - For a normal process, its PGID is the same as its parent PGID.
+  - For a Process Group Leader, its PGID is the same as its own PID.
+ 
+```
+ - This draw will explain the relation between process and others with groups.
+```
+![image](https://github.com/Bilalmhmd/Linux-Fundamentals/assets/70241688/65deb34b-e5ae-4470-b9a8-365ae2dbe1ef)
+
+
+### 6- What are Process Types ?
+- Processes can be classified into one of the following:
+  - Interactive Processes.
+  - Automatic Processes (Batch Processes).
+  - Daemon Processes.
+
+
+`Interactive Process: ` 
+
+- The process is started by a user within a terminal
+- It is controlled via that terminal
+- It is attached to its terminal, and will be killed if its terminal is closed.
+- It is called interactive, cause it communicates with the user through the terminal.
+- `Examples: `
+  
+  ```
+  $ ls
+  $ cat *.log | grep “error” | sort 
+  $ echo “Good Morning” > my-file
+  ```
+ ![types](https://github.com/Bilalmhmd/Linux-Fundamentals/assets/70241688/b3cadae3-8353-419b-b762-8e2ab71e56eb)
+
+
+### 7- what is The “Job” Concept ?
+- When a command is issued, the execution of this command is called a Job.
+- The Job can be,
+  - A single process
+  ```
+  $ gedit
+  $ cat my-file
+  ```
+  - Multiple connected processes
+  ```
+  $ ls | sort
+  ```
+  - A script that runs multiple processes (within a sub-shell)
+  ```
+  $ ./my-script
+  ```
+  - Jobs can be manipulated in the shell via “Job Control”

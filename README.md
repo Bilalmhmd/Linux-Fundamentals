@@ -330,3 +330,86 @@ $ pstree 1000 (Show tree starting at process with PID = 1000).
   $ ./my-script
   ```
   - Jobs can be manipulated in the shell via “Job Control”
+
+  - Jobs can run in the,
+    - Foreground
+      - All input and Output of the terminal is exclusively for this job.
+      - User can not use the terminal for any other activity or start other jobs.
+      - Only One Job can be a foreground job.
+      - Initially the shell is in the foreground until a job is launched.
+    - Background
+      - Job Input/Output does not utilize the terminal.
+      - However, it is `still attached to the terminal.`
+      - Possibility of multiple Jobs in the background for the same terminal.
+      - Sometimes it is useful when,
+        ```
+        - The process in the job has a Graphical User Interface and does not need the 
+          terminal for its Input/Output.
+        - The process takes a long time in processing, and user needs to use the terminal 
+          for other purposes.
+        - User needs to launch another job on the same terminal.
+        ```
+
+### 8- what is the Job Control ?
+- Start a job in the foreground
+```
+$ gedit
+```
+![gedit](https://github.com/Bilalmhmd/Linux-Fundamentals/assets/70241688/05fac491-fa91-4eb3-8f09-513d1b28acc3)
+
+- Start a job in the background
+```
+$ gedit &
+```
+![gedit ](https://github.com/Bilalmhmd/Linux-Fundamentals/assets/70241688/b7939df5-a265-4416-bee8-5f696d3a2fe1)
+
+- Stop the foreground Job
+```
+$ gedit
+Ctrl-z
+```
+![stop](https://github.com/Bilalmhmd/Linux-Fundamentals/assets/70241688/0973eeca-0375-444a-8fc8-b72111befc21)
+
+- Resume the Paused Job in the foreground
+```
+$ gedit
+Ctrl-z
+$ fg
+```
+![resume](https://github.com/Bilalmhmd/Linux-Fundamentals/assets/70241688/3c3cd173-b6d8-435e-a27a-e5f33ca8be7e)
+
+- Interrupt a foreground Job
+```
+$ gedit
+Ctrl-c
+```
+![interrupt](https://github.com/Bilalmhmd/Linux-Fundamentals/assets/70241688/b26617e2-da92-4b58-bff3-b13fd9843649)
+
+- Switch the foreground Job to the background
+```
+$ gedit
+Ctrl-z
+$ bg
+```
+![switch to bg](https://github.com/Bilalmhmd/Linux-Fundamentals/assets/70241688/f4177c1e-2552-4254-9a30-8422fd435aab)
+
+- List Jobs within the current shell session
+```
+$ jobs
+This will show which job runs in the FG, and which run in BG
+```
+![jobs](https://github.com/Bilalmhmd/Linux-Fundamentals/assets/70241688/7b1815a6-21ba-4aab-95d7-725a5b309161)
+
+- Switch a background job into the foreground 
+```
+$ jobs
+$ fg %n (where n is the process number in the list )
+```
+![switch to fg](https://github.com/Bilalmhmd/Linux-Fundamentals/assets/70241688/f10cdca7-0375-408e-b05a-bc18dc57037f)
+
+• Kill a background Job (all processes in this Job)
+```
+$ jobs
+$ kill %n
+```
+![kill](https://github.com/Bilalmhmd/Linux-Fundamentals/assets/70241688/8bb7ed6c-599a-4973-a4b0-e5ec37eb316b)

@@ -413,3 +413,21 @@ $ jobs
 $ kill %n
 ```
 ![kill](https://github.com/Bilalmhmd/Linux-Fundamentals/assets/70241688/8bb7ed6c-599a-4973-a4b0-e5ec37eb316b)
+
+
+### 9- What are Jobs and Process Groups ?
+- For each new Job, a new Process Group is created for processes inside this job.
+- This means that each job has its own process group. 
+- If the Job is about running a script, then the sub-shell that runs the script becomes the Process Group Leader.
+- When you perform Job control commands (send it to background, stop it, bring it back to foreground. … ) , it applies 
+  on whole process group for this Job and not on single process.
+  
+### 10- what is Shell Session ?
+- Each shell has its own session.
+- All processes running inside this session, will carry the same SID (which is the PID or the shell owning the session).
+- The shell is named the session leader.
+- A shell session contains one or more Jobs (the ones launched under it).
+- Jobs inside a session, one of this happens,
+  - All Jobs run in the background, and the shell runs in the foreground.
+  - A single Job runs in the foreground, while the shell and all other Jobs run in the background.
+

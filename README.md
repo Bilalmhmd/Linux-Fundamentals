@@ -213,6 +213,9 @@ strac -c ls
 8- what is the Job Control ?
 9- What are Jobs and Process Groups ?
 10- what is Shell Session ?
+11- what is Automatic Process ?
+12- what are Cron Jobs ?
+13- what is Daemon Process ?
 ```
 
 ### 1- What is a Process ?
@@ -303,6 +306,7 @@ $ pstree 1000 (Show tree starting at process with PID = 1000).
 - It is controlled via that terminal
 - It is attached to its terminal, and will be killed if its terminal is closed.
 - It is called interactive, cause it communicates with the user through the terminal.
+- Can run in the foreground or the background.
 - `Examples: `
   
   ```
@@ -431,3 +435,101 @@ $ kill %n
   - All Jobs run in the background, and the shell runs in the foreground.
   - A single Job runs in the foreground, while the shell and all other Jobs run in the background.
 
+
+### 11- what is Automatic Process ?
+- Also called a batch process.
+- This is a process that is not started directly by the user, instead, the user `schedule it for a later start`.
+- When started, It is not started inside a terminal, and `not attached to a terminal` (user does not even needs to be logged in when it starts).
+- It is queued in a spooler area, to be executed on a FIFO manner.
+- It is scheduled in one of the following ways,
+  ```
+  - Scheduled to run at a certain date and time (using the at command).
+  - Scheduled to run when system load is low (using the batch command).
+  - Scheduled to run periodically with certain periodicity or interval.
+  ```
+  #### 1- Scheduling Automatic Tasks (at Command).
+  ```
+  -$ at [options] <time> < <script file>
+  -$ at -f <script file> <time>
+  ```
+  <font color="red">Schedules jobs described in the file to run at the specified time.</font>
+  • Example:
+  ```
+     $ at 01:35 < job-to-run
+     $ at 9am February 2 < job-to-run
+     $ at tuesday +2 hours < job-to-run
+     $ at -f job-to-run noon
+  ```
+  |  Command     | Description               |
+  | -----------  | ------------------------- |
+  |   $ at -l    |                           |
+  |   $ atq      |    List scheduled jobs    |
+  |   $ at -r 3  |                           |
+  |   $ atq      |   Delete scheduled job #3 |
+
+  #### 2- Run at Low Load times (batch Command)
+  ```
+  $ batch < <File containing Jobs>
+  ```
+  
+  <p style="color:blue">Run the script whenever the system load allows.</p>
+  
+  • Example:
+  ```
+  $ batch < job-to-run
+  ```
+
+  #### 3- Cron Jobs
+  - Cron Jobs are those which are scheduled to run periodically (the word cron comes from Greek word for time).
+  - Jobs are organized in commands or shell scripts
+  - They are scheduled by the user to run at, 
+    - Fixed times
+    - Fixed dates
+    - Intervals
+  - Used often to automate repeated tasks (such as maintenance or administration tasks).
+  - Cron Jobs are organized in a set of configuration files that specify the Job to be run, and the required periodicity.
+  - These are called `crontab files.`
+  - Types of crontab files
+    - User crontab files (per user file).
+    - System crontab files (for root user).
+    - Other special files (will be discussed later).
+
+  #### 4- crontab Files Format
+  - The crontab files have the following format.
+  - It contains a line per scheduled job.
+  - Each line has three sections,
+    - Time Schedule Section
+      - This section describes when this Job is to be executed.
+    - User Section
+      - This section only applicable for some crontab files.
+    - Job Description Section
+      - Command to execute.
+    
+![image](https://github.com/Bilalmhmd/Linux-Fundamentals/assets/70241688/d3972aba-8cc1-468f-93af-574ceebe7e8d)
+
+
+  #### 5- More Examples
+
+
+  | Time (Min) | Time (Hr) | Day of Month | Month | Day of Week | Description |
+  |------------|-----------|--------------|-------|-------------|-------------|
+  | 30         | 0         | 1            | 1,6,12| *           | At 12:30 AM On First of Jan, June, Dec |
+  | 0          | 20        | *            | 10    | 1-5         | At 8:00 PM on Every (Mon-Fri) in Oct |
+  | 0          | 0         | 1,10,15      | *     | *           | At Midnight on 1,10,15 on Every Month |
+  | 5,10       | 0         | 10           | *     | 1           | At 12:05 and 12:10 AM on Every Monday and 10th of every Month |
+  | 30         | 18        | *            | *     | *           | At 6:30 PM Every day |
+  | */5        | *         | *            | *     | *           | Every 5 Minutes |
+  | 1,31       | 04,05     | 1-15         | 1,6   | *           | At 4:01, 4:31, 5:01, 5:31 on the first 15 days of Jan and June |
+
+ #### 6- Special Strings
+ 
+ | String | Description |
+ |-------------|-------------|
+ | @reboot     | Run once at Startup |
+ | @yearly     | Run once a year “0 0 1 1 *” |
+ | @annually   | Same as @yearly |
+ | @monthly    | Run once a month “0 0 1 * *” |
+ | @weekly     | Run once a week “0 0 * * 0” |
+ | @daily      | Run once a day “0 0 * * *” |
+ | @midnight   | Same as @daily |
+ | @hourly     | Run once an hour “0 * * * *” |
